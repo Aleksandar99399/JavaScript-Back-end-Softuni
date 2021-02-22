@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const app = express();
 const routes = require('./routes');
+const { auth } = require('./middlewares/auth');
 
 mongoose.connect('mongodb://localhost/softuni-movies', {
   useNewUrlParser: true,
@@ -23,6 +24,7 @@ app.use(cors());
 //When we receive data as json from client
 app.use(express.json()); // IMPORTANT FOR REST API
 
+app.use(auth);
 app.get('/', (req, res) => {
   res.json({
     message: "It's working"

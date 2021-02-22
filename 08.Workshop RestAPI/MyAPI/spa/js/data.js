@@ -126,7 +126,7 @@ export async function getMovies(search, page) {
     result = (
       await fetch(host(endpoints.MOVIES + '?' + pagingQuery), {
         headers: {
-          'user-token': token
+          Authorization: token
         }
       })
     ).json();
@@ -205,7 +205,7 @@ export async function updateMovie(id, updatedProps) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'user-token': token
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedProps)
     })

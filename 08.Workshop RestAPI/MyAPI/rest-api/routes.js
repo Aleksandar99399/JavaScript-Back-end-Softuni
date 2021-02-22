@@ -6,4 +6,3 @@ router.use('/auth', authController);
 router.use('/movies', movieController);
 
 module.exports = router;
-

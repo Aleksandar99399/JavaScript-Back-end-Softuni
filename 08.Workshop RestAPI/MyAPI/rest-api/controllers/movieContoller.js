@@ -1,9 +1,14 @@
 const router = require('express').Router();
 const Movie = require('../models/Movie');
+const { isAuth } = require('../middlewares/auth');
 
-router.post('/', (req, res) => {
-  console.log(req.body);
+router.get('/', (req, res) => {
+  Movie.find().then((movies) => {
+    res.json(movies);
+  });
+});
 
+router.post('/', isAuth, (req, res) => {
   let movie = new Movie(req.body);
 
   movie.save().then((createdMovie) => {

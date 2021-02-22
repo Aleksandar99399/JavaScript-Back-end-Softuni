@@ -1,0 +1,15 @@
+
+// Non-relational Database
+SQL query is not used in NoSQL systems
+More scalable and provide superior performance
+Such databases are MongoDB, Cassandra, Redis, etc..
+
+/////////////////
+Mongoose Overview
+Mongoose is an object-document model module in
+Node.js for MongoDB
+It provides a straight-forwar, schema-based solution
+to model your application data
+Includes build-in type casting and validation
+Extends the native queries (much easier to use)
+To install type in terminal/CMD

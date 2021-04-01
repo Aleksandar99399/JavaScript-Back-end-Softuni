@@ -1,7 +1,9 @@
 const Expense = require('../models/expenseModel');
+const User = require('../models/userModel');
 const expenseController = require('../controllers/expenseController');
 const AppError = require('../middlewares/appError');
-const { Mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const userModel = require('../models/userModel');
 
 exports.getAll = async (userId) => {
   return await Expense.find({ creator: userId }).lean();
@@ -10,8 +12,8 @@ exports.getAll = async (userId) => {
 exports.createExpense = async (expenseData, userId, next) => {
   try {
     const expense = await Expense.create({ ...expenseData, creator: userId });
-
-    console.log(expense);
+    // const saveModelUser = userModel.updateOne({ userId }, { expense });
+    // console.log(saveModelUser);
     return expense;
   } catch (err) {
     next(new AppError(err.message, 404, 'create-expense'));
@@ -50,7 +52,7 @@ exports.allSum = function () {
 exports.getSum = async (userId) => {
   const sum = await Expense.aggregate([
     {
-      $match: { creator: { $elemMatch: { _id: userId } } }
+      $match: { creator: new mongoose.Types.ObjectId(userId) }
     },
     {
       $group: {
@@ -60,6 +62,5 @@ exports.getSum = async (userId) => {
     }
   ]);
 
-  console.log(sum);
-  return sum;
+  return sum[0].allSum;
 };

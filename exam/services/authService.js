@@ -35,11 +35,13 @@ exports.login = async (username, password, next) => {
 exports.getOneUser = async (userId, next) => {
   try {
     const user = await User.findById(userId).lean();
+
     const expenses = await expenseService.getAll(userId);
-    console.log(userId);
+
     const totalAmout = await expenseService.getSum(userId);
-    console.log(totalAmout);
+
     user.expenseCount = expenses.length;
+    user.totalAmout = totalAmout;
 
     return user;
   } catch (err) {

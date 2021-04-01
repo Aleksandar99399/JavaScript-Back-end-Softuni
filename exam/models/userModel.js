@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
+// userSchema.virtual('expenses', {
+//   ref: 'Expense',
+//   foreignField: 'creator',
+//   localField: '_id'
+// });
+
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
 
